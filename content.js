@@ -1,27 +1,285 @@
-// EDITA ESTE ARCHIVO PARA AÑADIR LAS URL REALES.
-// Cada colección y categoría de producto puede tener una URL diferente por país.
-window.HUB_DATA = {
+const HUB_DATA = {
+
   countries: {
-    ES:"España", PT:"Portugal", IT:"Italia", FR:"France", PL:"Polska", RO:"România", CZ:"Česko",
-    GR:"Ελλάδα", TR:"Türkiye", MX:"México", CL:"Chile", CO:"Colombia", PE:"Perú"
+
+    ES: { name: "ESPAÑA", flag: "🇪🇸" },
+    PT: { name: "PORTUGAL", flag: "🇵🇹" },
+    IT: { name: "ITALIA", flag: "🇮🇹" },
+    FR: { name: "FRANCE", flag: "🇫🇷" },
+    PL: { name: "POLSKA", flag: "🇵🇱" },
+    RO: { name: "ROMÂNIA", flag: "🇷🇴" },
+    CZ: { name: "ČESKO", flag: "🇨🇿" },
+    GR: { name: "ΕΛΛΑΔΑ", flag: "🇬🇷" },
+    TR: { name: "TÜRKİYE", flag: "🇹🇷" },
+    MX: { name: "MÉXICO", flag: "🇲🇽" },
+    CL: { name: "CHILE", flag: "🇨🇱" },
+    CO: { name: "COLOMBIA", flag: "🇨🇴" },
+    PE: { name: "PERÚ", flag: "🇵🇪" }
+
   },
+
+
   collections: [
-    {id:"back-to-school", name:"Back to School", season:"", status:"active", countries:"global", urls:{}},
-    {id:"colours", name:"Colours", season:"", status:"active", countries:"global", urls:{}},
-    {id:"gem-it", name:"GEM IT!", season:"", status:"active", countries:"global", urls:{}},
-    {id:"squishy-viral", name:"Squishy Viral", season:"", status:"active", countries:"global", urls:{}},
-    {id:"click-bar", name:"Click Bar", season:"", status:"coming", countries:"global", urls:{}},
-    {id:"velvet", name:"Velvet", season:"", status:"coming", countries:"global", urls:{}},
-    {id:"atelier", name:"Atelier", season:"", status:"coming", countries:"global", urls:{}},
-    {id:"animals", name:"Animals", season:"", status:"coming", countries:"global", urls:{}},
-    // SS26: retirada en Europa. LATAM queda visible en histórico hasta definir su situación exacta.
-    {id:"ss26", name:"SS26", season:"SS26", status:"historic", countries:["ES","PT","IT","FR","PL","RO","CZ","GR","TR","MX","CL","CO","PE"], urls:{}, noteByRegion:{EU:"Retirada en Europa", LATAM:"Histórico"}}
+
+    {
+      id: "back-to-school",
+      name: "Back to School",
+      subtitle: "Colección global",
+      status: "active",
+
+      countries: [
+        "ES","PT","IT","FR","PL","RO","CZ",
+        "GR","TR","MX","CL","CO","PE"
+      ],
+
+      urls: {
+        ES: "",
+        PT: "",
+        IT: "",
+        FR: "",
+        PL: "",
+        RO: "",
+        CZ: "",
+        GR: "",
+        TR: "",
+        MX: "",
+        CL: "",
+        CO: "",
+        PE: ""
+      }
+    },
+
+
+    {
+      id: "colours",
+      name: "Colours",
+      subtitle: "Colección global",
+      status: "active",
+
+      countries: [
+        "ES","PT","IT","FR","PL","RO","CZ",
+        "GR","TR","MX","CL","CO","PE"
+      ],
+
+      urls: {
+        ES: "",
+        PT: "",
+        IT: "",
+        FR: "",
+        PL: "",
+        RO: "",
+        CZ: "",
+        GR: "",
+        TR: "",
+        MX: "",
+        CL: "",
+        CO: "",
+        PE: ""
+      }
+    },
+
+
+    {
+      id: "gem-it",
+      name: "GEM IT!",
+      subtitle: "Colección global",
+      status: "active",
+
+      countries: [
+        "ES","PT","IT","FR","PL","RO","CZ",
+        "GR","TR","MX","CL","CO","PE"
+      ],
+
+      urls: {
+        ES: "",
+        PT: "",
+        IT: "",
+        FR: "",
+        PL: "",
+        RO: "",
+        CZ: "",
+        GR: "",
+        TR: "",
+        MX: "",
+        CL: "",
+        CO: "",
+        PE: ""
+      }
+    },
+
+
+    {
+      id: "squishy-viral",
+      name: "Squishy Viral",
+      subtitle: "Viral Collection",
+      status: "active",
+
+      countries: [
+        "ES","PT","IT","FR","PL","RO","CZ",
+        "GR","TR","MX","CL","CO","PE"
+      ],
+
+      urls: {
+        ES: "",
+        PT: "",
+        IT: "",
+        FR: "",
+        PL: "",
+        RO: "",
+        CZ: "",
+        GR: "",
+        TR: "",
+        MX: "",
+        CL: "",
+        CO: "",
+        PE: ""
+      }
+    },
+
+
+    {
+      id: "click-bar",
+      name: "Click Bar",
+      subtitle: "Nueva colección",
+      status: "upcoming",
+
+      countries: [
+        "ES","PT","IT","FR","PL","RO","CZ",
+        "GR","TR","MX","CL","CO","PE"
+      ],
+
+      urls: {}
+    },
+
+
+    {
+      id: "velvet",
+      name: "Velvet",
+      subtitle: "Nueva colección",
+      status: "upcoming",
+
+      countries: [
+        "ES","PT","IT","FR","PL","RO","CZ",
+        "GR","TR","MX","CL","CO","PE"
+      ],
+
+      urls: {}
+    },
+
+
+    {
+      id: "atelier",
+      name: "Atelier Essentials",
+      subtitle: "Nueva colección",
+      status: "upcoming",
+
+      countries: [
+        "ES","PT","IT","FR","PL","RO","CZ",
+        "GR","TR","MX","CL","CO","PE"
+      ],
+
+      urls: {}
+    },
+
+
+    {
+      id: "animals",
+      name: "Animals",
+      subtitle: "Animal Collection",
+      status: "upcoming",
+
+      countries: [
+        "ES","PT","IT","FR","PL","RO","CZ",
+        "GR","TR","MX","CL","CO","PE"
+      ],
+
+      urls: {}
+    },
+
+
+    {
+      id: "ss26",
+      name: "SS26",
+      subtitle: "Retirada en Europa",
+      status: "historic",
+
+      countries: [
+        "ES","PT","IT","FR","PL","RO","CZ","GR","TR"
+      ],
+
+      urls: {
+        ES: "",
+        PT: "",
+        IT: "",
+        FR: "",
+        PL: "",
+        RO: "",
+        CZ: "",
+        GR: "",
+        TR: ""
+      }
+    }
+
   ],
+
+
   products: [
-    {id:"cases", name:"Carcasas", description:"Manual y guía de carcasas", urls:{}},
-    {id:"glass", name:"Cristales", description:"Tipos, compatibilidades e información", urls:{}},
-    {id:"tablets", name:"Tablet", description:"Información y manual de producto", urls:{}},
-    {id:"accessories", name:"Accesorios", description:"Categorías e información de producto", urls:{}},
-    {id:"squishy", name:"Squishy", description:"Catálogo y manual Squishy", urls:{}}
+
+    {
+      id: "cases",
+      name: "Carcasas",
+      description: "Tipos, materiales, características y recomendaciones.",
+      urls: {
+        ES: "", PT: "", IT: "", FR: "",
+        PL: "", RO: "", CZ: "", GR: "",
+        TR: "", MX: "", CL: "", CO: "", PE: ""
+      }
+    },
+
+    {
+      id: "glass",
+      name: "Cristales",
+      description: "Tipos de protección, compatibilidades e información.",
+      urls: {
+        ES: "", PT: "", IT: "", FR: "",
+        PL: "", RO: "", CZ: "", GR: "",
+        TR: "", MX: "", CL: "", CO: "", PE: ""
+      }
+    },
+
+    {
+      id: "tablet",
+      name: "Tablet",
+      description: "Guía y catálogo de producto Tablet.",
+      urls: {
+        ES: "", PT: "", IT: "", FR: "",
+        PL: "", RO: "", CZ: "", GR: "",
+        TR: "", MX: "", CL: "", CO: "", PE: ""
+      }
+    },
+
+    {
+      id: "accessories",
+      name: "Accesorios",
+      description: "Categorías, producto y principales características.",
+      urls: {
+        ES: "", PT: "", IT: "", FR: "",
+        PL: "", RO: "", CZ: "", GR: "",
+        TR: "", MX: "", CL: "", CO: "", PE: ""
+      }
+    },
+
+    {
+      id: "squishy",
+      name: "Squishy",
+      description: "Catálogo y guía del universo Squishy.",
+      urls: {
+        ES: "", PT: "", IT: "", FR: "",
+        PL: "", RO: "", CZ: "", GR: "",
+        TR: "", MX: "", CL: "", CO: "", PE: ""
+      }
+    }
+
   ]
+
 };
