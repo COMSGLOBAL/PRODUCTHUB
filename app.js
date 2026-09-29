@@ -3,6 +3,11 @@
    GitHub Pages ↔ Google Sheets
 ========================================================= */
 
+
+/* =========================================================
+   API
+========================================================= */
+
 const API_URL =
   'https://script.google.com/macros/s/AKfycbxrQPNlxCdaMRDV6MWsXd1qXDYmNu-F4cori-DqJoabVQHl3PJjHx3Ag4cYWzdH5Pel/exec';
 
@@ -23,6 +28,10 @@ const ALLOWED_COUNTRIES = [
   "PE"
 ];
 
+
+/* =========================================================
+   COUNTRY INFO
+========================================================= */
 
 const COUNTRY_INFO = {
 
@@ -106,15 +115,9 @@ document.addEventListener(
 
 async function initHub() {
 
-  const country = getCountryFromURL();
+  const country =
+    getCountryFromURL();
 
-  /*
-    No utilizamos España como fallback.
-
-    Si no existe ?country=XX
-    o el país no es válido,
-    bloqueamos la vista.
-  */
 
   if (
     !country ||
@@ -137,7 +140,10 @@ async function initHub() {
       await fetchMarketData(country);
 
 
-    if (!data || data.ok !== true) {
+    if (
+      !data ||
+      data.ok !== true
+    ) {
 
       throw new Error(
         data?.error ||
@@ -200,7 +206,9 @@ function getCountryFromURL() {
 
 
   if (!country) {
+
     return null;
+
   }
 
 
@@ -249,13 +257,22 @@ function configureMarket(country) {
 
 
 /* =========================================================
-   API
+   FETCH API
 ========================================================= */
 
 async function fetchMarketData(country) {
 
+  /*
+    Añadimos timestamp para evitar
+    cualquier caché de la API.
+  */
+
+  const timestamp =
+    Date.now();
+
+
   const url =
-    `${API_URL}?country=${encodeURIComponent(country)}`;
+    `${API_URL}?country=${encodeURIComponent(country)}&v=${timestamp}`;
 
 
   const response =
@@ -277,7 +294,17 @@ async function fetchMarketData(country) {
   }
 
 
-  return await response.json();
+  const data =
+    await response.json();
+
+
+  console.log(
+    "PRODUCT HUB DATA:",
+    data
+  );
+
+
+  return data;
 
 }
 
@@ -306,12 +333,6 @@ function applyTranslations(
       const value =
         translations[key];
 
-
-      /*
-        Si una traducción está vacía,
-        dejamos el texto que existe
-        en index.html como fallback.
-      */
 
       if (
         value !== undefined &&
@@ -357,9 +378,19 @@ function renderCollections(
     );
 
 
-  clearElement(activeContainer);
-  clearElement(upcomingContainer);
-  clearElement(historicContainer);
+  clearElement(
+    activeContainer
+  );
+
+
+  clearElement(
+    upcomingContainer
+  );
+
+
+  clearElement(
+    historicContainer
+  );
 
 
   const groups = {
@@ -397,11 +428,16 @@ function renderCollections(
   groups.active.forEach(
     collection => {
 
+      if (!activeContainer) return;
+
+
       activeContainer.appendChild(
+
         createCollectionCard(
           collection,
           translations
         )
+
       );
 
     }
@@ -411,11 +447,16 @@ function renderCollections(
   groups.upcoming.forEach(
     collection => {
 
+      if (!upcomingContainer) return;
+
+
       upcomingContainer.appendChild(
+
         createCollectionCard(
           collection,
           translations
         )
+
       );
 
     }
@@ -425,11 +466,16 @@ function renderCollections(
   groups.historic.forEach(
     collection => {
 
+      if (!historicContainer) return;
+
+
       historicContainer.appendChild(
+
         createCollectionCard(
           collection,
           translations
         )
+
       );
 
     }
@@ -465,15 +511,88 @@ function createCollectionCard(
   translations
 ) {
 
+  /*
+    Comprobamos si realmente
+    tenemos una URL.
+  */
+
+  const url =
+    collection.url
+      ? String(
+          collection.url
+        ).trim()
+      : "";
+
+
+  /*
+    PRÓXIMAMENTE nunca será clicable.
+
+    ACTIVA e HISTÓRICO sí serán
+    clicables cuando exista URL.
+  */
+
+  const isClickable =
+    url !== "" &&
+    collection.status !== "upcoming";
+
+
+  /*
+    Si es clicable creamos directamente
+    un <a>.
+
+    Así TODA la tarjeta funciona
+    como enlace.
+  */
+
   const card =
     document.createElement(
-      "article"
+      isClickable
+        ? "a"
+        : "article"
     );
 
 
   card.className =
     `collection-card ${collection.status}`;
 
+
+  if (isClickable) {
+
+    card.href =
+      url;
+
+
+    card.target =
+      "_blank";
+
+
+    card.rel =
+      "noopener noreferrer";
+
+
+    card.setAttribute(
+      "aria-label",
+      `Abrir ${collection.name}`
+    );
+
+
+    card.style.textDecoration =
+      "none";
+
+
+    card.style.color =
+      "inherit";
+
+
+    card.style.cursor =
+      "pointer";
+
+  }
+
+
+  /* -------------------------
+     TOP
+  ------------------------- */
 
   const top =
     document.createElement(
@@ -531,6 +650,10 @@ function createCollectionCard(
   );
 
 
+  /* -------------------------
+     CONTENT
+  ------------------------- */
+
   const content =
     document.createElement(
       "div"
@@ -584,6 +707,10 @@ function createCollectionCard(
   }
 
 
+  /* -------------------------
+     FOOTER
+  ------------------------- */
+
   const footer =
     document.createElement(
       "div"
@@ -595,8 +722,7 @@ function createCollectionCard(
 
 
   /*
-    PRÓXIMAMENTE:
-    No hacemos clic aunque tenga URL.
+    PRÓXIMAMENTE
   */
 
   if (
@@ -627,52 +753,38 @@ function createCollectionCard(
 
 
   /*
-    ACTIVA / HISTÓRICO con URL
+    ACTIVA / HISTÓRICO
+    CON URL
   */
 
   else if (
-    collection.url &&
-    String(
-      collection.url
-    ).trim() !== ""
+    isClickable
   ) {
 
-    const link =
+    const label =
       document.createElement(
-        "a"
+        "span"
       );
 
 
-    link.className =
+    label.className =
       "collection-link";
 
 
-    link.href =
-      collection.url;
-
-
-    link.target =
-      "_blank";
-
-
-    link.rel =
-      "noopener noreferrer";
-
-
-    link.textContent =
+    label.textContent =
       translations.view_collection ||
       "VER COLECCIÓN →";
 
 
     footer.appendChild(
-      link
+      label
     );
 
   }
 
 
   /*
-    No existe URL para este mercado
+    SIN URL
   */
 
   else {
@@ -699,6 +811,10 @@ function createCollectionCard(
   }
 
 
+  /* -------------------------
+     MONTAR TARJETA
+  ------------------------- */
+
   card.appendChild(
     top
   );
@@ -720,7 +836,7 @@ function createCollectionCard(
 
 
 /* =========================================================
-   PRODUCT
+   PRODUCTS
 ========================================================= */
 
 function renderProducts(
@@ -732,6 +848,9 @@ function renderProducts(
     document.getElementById(
       "productGrid"
     );
+
+
+  if (!container) return;
 
 
   clearElement(
@@ -770,14 +889,58 @@ function createProductCard(
   index
 ) {
 
+  const url =
+    product.url
+      ? String(
+          product.url
+        ).trim()
+      : "";
+
+
+  /*
+    Si existe URL,
+    toda la tarjeta de producto
+    también será clicable.
+  */
+
   const card =
     document.createElement(
-      "article"
+      url
+        ? "a"
+        : "article"
     );
 
 
   card.className =
     "product-card";
+
+
+  if (url) {
+
+    card.href =
+      url;
+
+
+    card.target =
+      "_blank";
+
+
+    card.rel =
+      "noopener noreferrer";
+
+
+    card.style.textDecoration =
+      "none";
+
+
+    card.style.color =
+      "inherit";
+
+
+    card.style.cursor =
+      "pointer";
+
+  }
 
 
   const number =
@@ -834,42 +997,25 @@ function createProductCard(
   );
 
 
-  if (
-    product.url &&
-    String(
-      product.url
-    ).trim() !== ""
-  ) {
+  if (url) {
 
-    const link =
+    const label =
       document.createElement(
-        "a"
+        "span"
       );
 
 
-    link.href =
-      product.url;
-
-
-    link.target =
-      "_blank";
-
-
-    link.rel =
-      "noopener noreferrer";
-
-
-    link.className =
+    label.className =
       "product-link";
 
 
-    link.textContent =
+    label.textContent =
       translations.open_guide ||
       "ABRIR GUÍA →";
 
 
     card.appendChild(
-      link
+      label
     );
 
   }
@@ -904,7 +1050,7 @@ function createProductCard(
 
 
 /* =========================================================
-   STATUS
+   STATUS LABELS
 ========================================================= */
 
 function getStatusLabel(
@@ -912,7 +1058,9 @@ function getStatusLabel(
   translations
 ) {
 
-  if (status === "active") {
+  if (
+    status === "active"
+  ) {
 
     return (
       translations.status_active ||
@@ -922,7 +1070,9 @@ function getStatusLabel(
   }
 
 
-  if (status === "upcoming") {
+  if (
+    status === "upcoming"
+  ) {
 
     return (
       translations.status_upcoming ||
@@ -932,7 +1082,9 @@ function getStatusLabel(
   }
 
 
-  if (status === "historic") {
+  if (
+    status === "historic"
+  ) {
 
     return (
       translations.status_historic ||
@@ -948,7 +1100,7 @@ function getStatusLabel(
 
 
 /* =========================================================
-   VISIBILITY
+   GROUP VISIBILITY
 ========================================================= */
 
 function toggleGroup(
@@ -1043,32 +1195,42 @@ function showMarketError() {
 
 
   if (loader) {
+
     loader.style.display =
       "none";
+
   }
 
 
   if (main) {
+
     main.style.display =
       "none";
+
   }
 
 
   if (header) {
+
     header.style.display =
       "none";
+
   }
 
 
   if (footer) {
+
     footer.style.display =
       "none";
+
   }
 
 
   if (error) {
+
     error.hidden =
       false;
+
   }
 
 }
@@ -1091,7 +1253,10 @@ function showDataError() {
 
   loader.innerHTML = `
     <div class="loader-content">
-      <div class="loader-mark">!</div>
+
+      <div class="loader-mark">
+        !
+      </div>
 
       <strong>
         PRODUCT & RETAIL HUB
@@ -1100,6 +1265,7 @@ function showDataError() {
       <span>
         No se han podido cargar los datos.
       </span>
+
     </div>
   `;
 
