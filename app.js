@@ -9,7 +9,7 @@
 ========================================================= */
 
 const API_URL =
-  'https://script.google.com/macros/s/AKfycbxrQPNlxCdaMRDV6MWsXd1qXDYmNu-F4cori-DqJoabVQHl3PJjHx3Ag4cYWzdH5Pel/exec';
+  'https://script.google.com/macros/s/AKfycbw9xdH86IWzUCmJhhc3tVeSBVYhJRdmLn_IIYcl8gFPRj4uV7JEyCET23i3LAE4oXFU/exec';
 
 
 const ALLOWED_COUNTRIES = [
@@ -137,7 +137,9 @@ async function initHub() {
   try {
 
     const data =
-      await fetchMarketData(country);
+      await fetchMarketData(
+        country
+      );
 
 
     if (
@@ -151,6 +153,12 @@ async function initHub() {
       );
 
     }
+
+
+    console.log(
+      "PRODUCT HUB DATA:",
+      data
+    );
 
 
     applyTranslations(
@@ -202,7 +210,9 @@ function getCountryFromURL() {
 
 
   const country =
-    params.get("country");
+    params.get(
+      "country"
+    );
 
 
   if (!country) {
@@ -262,11 +272,6 @@ function configureMarket(country) {
 
 async function fetchMarketData(country) {
 
-  /*
-    Añadimos timestamp para evitar
-    cualquier caché de la API.
-  */
-
   const timestamp =
     Date.now();
 
@@ -294,17 +299,7 @@ async function fetchMarketData(country) {
   }
 
 
-  const data =
-    await response.json();
-
-
-  console.log(
-    "PRODUCT HUB DATA:",
-    data
-  );
-
-
-  return data;
+  return await response.json();
 
 }
 
@@ -432,12 +427,10 @@ function renderCollections(
 
 
       activeContainer.appendChild(
-
         createCollectionCard(
           collection,
           translations
         )
-
       );
 
     }
@@ -451,12 +444,10 @@ function renderCollections(
 
 
       upcomingContainer.appendChild(
-
         createCollectionCard(
           collection,
           translations
         )
-
       );
 
     }
@@ -470,12 +461,10 @@ function renderCollections(
 
 
       historicContainer.appendChild(
-
         createCollectionCard(
           collection,
           translations
         )
-
       );
 
     }
@@ -511,11 +500,6 @@ function createCollectionCard(
   translations
 ) {
 
-  /*
-    Comprobamos si realmente
-    tenemos una URL.
-  */
-
   const url =
     collection.url
       ? String(
@@ -524,25 +508,17 @@ function createCollectionCard(
       : "";
 
 
-  /*
-    PRÓXIMAMENTE nunca será clicable.
+  const imageUrl =
+    getImageUrl(
+      collection.image
+    );
 
-    ACTIVA e HISTÓRICO sí serán
-    clicables cuando exista URL.
-  */
 
   const isClickable =
     url !== "" &&
-    collection.status !== "upcoming";
+    collection.status !==
+      "upcoming";
 
-
-  /*
-    Si es clicable creamos directamente
-    un <a>.
-
-    Así TODA la tarjeta funciona
-    como enlace.
-  */
 
   const card =
     document.createElement(
@@ -575,24 +551,12 @@ function createCollectionCard(
       `Abrir ${collection.name}`
     );
 
-
-    card.style.textDecoration =
-      "none";
-
-
-    card.style.color =
-      "inherit";
-
-
-    card.style.cursor =
-      "pointer";
-
   }
 
 
-  /* -------------------------
-     TOP
-  ------------------------- */
+  /* =======================================================
+     CABECERA
+  ======================================================= */
 
   const top =
     document.createElement(
@@ -650,9 +614,84 @@ function createCollectionCard(
   );
 
 
-  /* -------------------------
-     CONTENT
-  ------------------------- */
+  card.appendChild(
+    top
+  );
+
+
+  /* =======================================================
+     IMAGEN 1:1
+  ======================================================= */
+
+  if (imageUrl) {
+
+    const media =
+      document.createElement(
+        "div"
+      );
+
+
+    media.className =
+      "collection-card-media";
+
+
+    const image =
+      document.createElement(
+        "img"
+      );
+
+
+    image.className =
+      "collection-card-image";
+
+
+    image.src =
+      imageUrl;
+
+
+    image.alt =
+      collection.name || "";
+
+
+    image.loading =
+      "lazy";
+
+
+    image.decoding =
+      "async";
+
+
+    /*
+      Si por cualquier motivo Drive
+      no puede servir la imagen,
+      ocultamos el espacio de imagen.
+    */
+
+    image.addEventListener(
+      "error",
+      function() {
+
+        media.remove();
+
+      }
+    );
+
+
+    media.appendChild(
+      image
+    );
+
+
+    card.appendChild(
+      media
+    );
+
+  }
+
+
+  /* =======================================================
+     CONTENIDO
+  ======================================================= */
 
   const content =
     document.createElement(
@@ -707,9 +746,14 @@ function createCollectionCard(
   }
 
 
-  /* -------------------------
+  card.appendChild(
+    content
+  );
+
+
+  /* =======================================================
      FOOTER
-  ------------------------- */
+  ======================================================= */
 
   const footer =
     document.createElement(
@@ -754,7 +798,6 @@ function createCollectionCard(
 
   /*
     ACTIVA / HISTÓRICO
-    CON URL
   */
 
   else if (
@@ -811,26 +854,121 @@ function createCollectionCard(
   }
 
 
-  /* -------------------------
-     MONTAR TARJETA
-  ------------------------- */
-
-  card.appendChild(
-    top
-  );
-
-
-  card.appendChild(
-    content
-  );
-
-
   card.appendChild(
     footer
   );
 
 
   return card;
+
+}
+
+
+/* =========================================================
+   GOOGLE DRIVE IMAGE
+========================================================= */
+
+function getImageUrl(value) {
+
+  if (
+    !value ||
+    String(value).trim() === ""
+  ) {
+
+    return "";
+
+  }
+
+
+  const url =
+    String(value).trim();
+
+
+  /*
+    FORMATO DRIVE:
+    https://drive.google.com/file/d/FILE_ID/view
+  */
+
+  const fileMatch =
+    url.match(
+      /\/file\/d\/([^/]+)/
+    );
+
+
+  if (
+    fileMatch &&
+    fileMatch[1]
+  ) {
+
+    const fileId =
+      fileMatch[1];
+
+
+    return (
+      "https://drive.google.com/thumbnail?id=" +
+      encodeURIComponent(fileId) +
+      "&sz=w1200"
+    );
+
+  }
+
+
+  /*
+    FORMATO DRIVE:
+    https://drive.google.com/open?id=FILE_ID
+    o cualquier URL que tenga ?id=
+  */
+
+  try {
+
+    const parsedUrl =
+      new URL(url);
+
+
+    if (
+      parsedUrl.hostname.includes(
+        "drive.google.com"
+      )
+    ) {
+
+      const id =
+        parsedUrl.searchParams.get(
+          "id"
+        );
+
+
+      if (id) {
+
+        return (
+          "https://drive.google.com/thumbnail?id=" +
+          encodeURIComponent(id) +
+          "&sz=w1200"
+        );
+
+      }
+
+    }
+
+  }
+
+  catch (error) {
+
+    console.warn(
+      "URL de imagen no válida:",
+      url
+    );
+
+    return "";
+
+  }
+
+
+  /*
+    Si no es Drive asumimos que
+    ya es una URL directa de imagen.
+  */
+
+  return url;
 
 }
 
@@ -897,12 +1035,6 @@ function createProductCard(
       : "";
 
 
-  /*
-    Si existe URL,
-    toda la tarjeta de producto
-    también será clicable.
-  */
-
   const card =
     document.createElement(
       url
@@ -927,18 +1059,6 @@ function createProductCard(
 
     card.rel =
       "noopener noreferrer";
-
-
-    card.style.textDecoration =
-      "none";
-
-
-    card.style.color =
-      "inherit";
-
-
-    card.style.cursor =
-      "pointer";
 
   }
 
@@ -1050,7 +1170,7 @@ function createProductCard(
 
 
 /* =========================================================
-   STATUS LABELS
+   STATUS
 ========================================================= */
 
 function getStatusLabel(
@@ -1100,7 +1220,7 @@ function getStatusLabel(
 
 
 /* =========================================================
-   GROUP VISIBILITY
+   VISIBILITY
 ========================================================= */
 
 function toggleGroup(
