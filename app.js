@@ -4,7 +4,7 @@
 ========================================================= */
 
 const API_URL =
-  "https://script.google.com/macros/s/AKfycbw9h7qaNbCzLxMM0R-b0-igCNvWrc_e6UQcTz56XnxE4uMhDbVROnAw7jyzcLdd7iyW/exec";
+  'https://script.google.com/macros/s/AKfycbxrQPNlxCdaMRDV6MWsXd1qXDYmNu-F4cori-DqJoabVQHl3PJjHx3Ag4cYWzdH5Pel/exec';
 
 
 const ALLOWED_COUNTRIES = [
