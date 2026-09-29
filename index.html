@@ -15,9 +15,7 @@
     content="Product & Retail Hub"
   >
 
-  <title>
-    Product & Retail Hub
-  </title>
+  <title>Product & Retail Hub</title>
 
 
   <!-- GOOGLE FONT -->
@@ -43,7 +41,7 @@
 
   <link
     rel="stylesheet"
-    href="./style.css?v=14"
+    href="./style.css?v=15"
   >
 
 </head>
@@ -92,7 +90,7 @@
 
     <div class="market-error-inner">
 
-      <span class="eyebrow">
+      <span class="market-error-code">
         PRODUCT & RETAIL HUB
       </span>
 
@@ -123,20 +121,26 @@
         aria-label="Product & Retail Hub"
       >
 
-        <span class="brand-mark">
+        <span>
+          PRODUCT
+        </span>
+
+        <span class="brand-divider">
           +
         </span>
 
-        <span class="brand-text">
-          PRODUCT & RETAIL HUB
+        <span class="brand-secondary">
+          RETAIL HUB
         </span>
 
       </a>
 
 
-      <div class="header-market">
+      <div class="market-indicator">
 
-        <span class="header-market-label">
+        <span class="market-dot"></span>
+
+        <span>
           MARKET
         </span>
 
@@ -166,17 +170,31 @@
 
       <div class="hero-inner">
 
+
+        <!-- HERO COPY -->
+
         <div class="hero-copy">
 
-          <span
-            class="hero-overline"
-            id="heroCountry"
-          >
-            —
-          </span>
+
+          <div class="eyebrow">
+
+            <span class="eyebrow-text">
+              PRODUCT & RETAIL
+            </span>
+
+            <span class="eyebrow-line"></span>
+
+            <span
+              class="eyebrow-country"
+              id="heroCountry"
+            >
+              —
+            </span>
+
+          </div>
 
 
-          <h1>
+          <h1 class="hero-title">
 
             <span data-i18n="hero_title_1">
               Everything
@@ -186,7 +204,10 @@
               you need.
             </span>
 
-            <span data-i18n="hero_title_3">
+            <span
+              class="hero-title-accent"
+              data-i18n="hero_title_3"
+            >
               In one place.
             </span>
 
@@ -204,14 +225,17 @@
 
           <a
             href="#collections"
-            class="hero-button"
+            class="primary-button"
           >
 
             <span data-i18n="hero_cta">
               EXPLORE THE HUB
             </span>
 
-            <span aria-hidden="true">
+            <span
+              class="button-arrow"
+              aria-hidden="true"
+            >
               ↓
             </span>
 
@@ -220,19 +244,50 @@
         </div>
 
 
+        <!-- HERO VISUAL -->
+
         <div
-          class="hero-graphic"
+          class="hero-visual"
           aria-hidden="true"
         >
 
-          <div class="hero-circle">
+          <div class="visual-backdrop"></div>
 
-            <span>
-              PRODUCT
+
+          <div class="visual-card visual-card-1">
+
+            <span class="visual-number">
+              01
             </span>
 
             <strong>
-              HUB
+              COLLECTIONS
+            </strong>
+
+          </div>
+
+
+          <div class="visual-card visual-card-2">
+
+            <span class="visual-number">
+              02
+            </span>
+
+            <strong>
+              PRODUCT
+            </strong>
+
+          </div>
+
+
+          <div class="visual-card visual-card-3">
+
+            <span class="visual-number">
+              03
+            </span>
+
+            <strong>
+              RETAIL
             </strong>
 
           </div>
@@ -249,38 +304,37 @@
     ==================================================== -->
 
     <section
-      class="collections-section"
+      class="section collections-section"
       id="collections"
     >
 
       <div class="section-inner">
 
 
-        <!-- SECTION HEADER -->
+        <!-- SECTION HEADING -->
 
         <div class="section-heading">
 
-          <div>
-
-            <span
-              class="section-overline"
-              data-i18n="collections_overline"
-            >
+          <div class="section-overline">
+            <span data-i18n="collections_overline">
               COLLECTIONS
             </span>
+          </div>
 
+
+          <div class="section-heading-grid">
 
             <h2 data-i18n="collections_title">
               Current collections
             </h2>
 
+
+            <p data-i18n="collections_description">
+              Explore active, upcoming and previous
+              collections for your market.
+            </p>
+
           </div>
-
-
-          <p data-i18n="collections_description">
-            Explore active, upcoming and previous
-            collections for your market.
-          </p>
 
         </div>
 
@@ -292,11 +346,13 @@
           id="activeGroup"
         >
 
-          <div class="collection-group-heading">
+          <div class="group-heading">
 
-            <span data-i18n="status_active">
+            <span class="status-dot active"></span>
+
+            <h3 data-i18n="status_active">
               ACTIVE
-            </span>
+            </h3>
 
           </div>
 
@@ -316,11 +372,13 @@
           id="upcomingGroup"
         >
 
-          <div class="collection-group-heading">
+          <div class="group-heading">
 
-            <span data-i18n="status_upcoming">
+            <span class="status-dot upcoming"></span>
+
+            <h3 data-i18n="status_upcoming">
               UPCOMING
-            </span>
+            </h3>
 
           </div>
 
@@ -340,11 +398,13 @@
           id="historicGroup"
         >
 
-          <div class="collection-group-heading">
+          <div class="group-heading">
 
-            <span data-i18n="status_historic">
+            <span class="status-dot historic"></span>
+
+            <h3 data-i18n="status_historic">
               HISTORIC
-            </span>
+            </h3>
 
           </div>
 
@@ -366,31 +426,35 @@
     ==================================================== -->
 
     <section
-      class="product-section"
+      class="section product-section"
       id="product"
     >
 
       <div class="section-inner">
 
-        <div class="product-heading">
 
-          <span
-            class="section-overline"
-            data-i18n="product_overline"
-          >
-            PRODUCT
-          </span>
+        <div class="section-heading section-heading-light">
 
-
-          <h2 data-i18n="product_title">
-            Product knowledge
-          </h2>
+          <div class="section-overline">
+            <span data-i18n="product_overline">
+              PRODUCT
+            </span>
+          </div>
 
 
-          <p data-i18n="product_description">
-            Access product guides and essential
-            information for your market.
-          </p>
+          <div class="section-heading-grid">
+
+            <h2 data-i18n="product_title">
+              Product knowledge
+            </h2>
+
+
+            <p data-i18n="product_description">
+              Access product guides and essential
+              information for your market.
+            </p>
+
+          </div>
 
         </div>
 
@@ -409,20 +473,22 @@
          RESOURCES
     ==================================================== -->
 
-    <section class="resources-section">
+    <section class="section resources-section">
 
       <div class="section-inner">
 
         <div class="resources-layout">
 
-          <div class="resources-title">
 
-            <span
-              class="section-overline"
-              data-i18n="resources_overline"
-            >
-              RESOURCES
-            </span>
+          <div>
+
+            <div class="section-overline">
+
+              <span data-i18n="resources_overline">
+                RESOURCES
+              </span>
+
+            </div>
 
 
             <h2 data-i18n="resources_title">
@@ -467,15 +533,16 @@
 
     <div class="footer-inner">
 
-      <div class="footer-brand">
 
-        <span class="brand-mark">
-          +
-        </span>
+      <div class="footer-brand">
 
         <strong>
           PRODUCT & RETAIL HUB
         </strong>
+
+        <p>
+          Global Retail Communication
+        </p>
 
       </div>
 
@@ -501,7 +568,7 @@
        JAVASCRIPT
   ====================================================== -->
 
-  <script src="./app.js?v=14"></script>
+  <script src="./app.js?v=15"></script>
 
 
 </body>
