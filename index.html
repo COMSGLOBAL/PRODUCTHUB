@@ -2,6 +2,7 @@
 <html lang="es">
 
 <head>
+
   <meta charset="UTF-8">
 
   <meta
@@ -14,21 +15,35 @@
     content="Product & Retail Hub"
   >
 
-  <title>Product & Retail Hub</title>
+  <title>
+    Product & Retail Hub
+  </title>
 
-  <!-- GOOGLE FONT · ARIMO -->
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+  <!-- GOOGLE FONT -->
+
+  <link
+    rel="preconnect"
+    href="https://fonts.googleapis.com"
+  >
+
+  <link
+    rel="preconnect"
+    href="https://fonts.gstatic.com"
+    crossorigin
+  >
 
   <link
     href="https://fonts.googleapis.com/css2?family=Arimo:wght@400;500;600;700&display=swap"
     rel="stylesheet"
   >
 
-  <!-- MASTER CSS -->
+
+  <!-- CSS -->
+
   <link
     rel="stylesheet"
-    href="./style.css?v=10"
+    href="./style.css?v=12"
   >
 
 </head>
@@ -38,22 +53,26 @@
 
 
   <!-- =====================================================
-       LOADING
+       LOADER
   ====================================================== -->
 
   <div
-    class="hub-loader"
     id="hubLoader"
+    class="hub-loader"
   >
 
     <div class="loader-content">
 
       <div class="loader-mark">
-        P
+        +
       </div>
 
-      <span>
+      <strong>
         PRODUCT & RETAIL HUB
+      </strong>
+
+      <span>
+        Loading...
       </span>
 
     </div>
@@ -61,21 +80,20 @@
   </div>
 
 
-
   <!-- =====================================================
        INVALID MARKET
   ====================================================== -->
 
-  <div
-    class="market-error"
+  <section
     id="marketError"
+    class="market-error"
     hidden
   >
 
     <div class="market-error-inner">
 
-      <span class="market-error-code">
-        PRODUCT HUB
+      <span class="eyebrow">
+        PRODUCT & RETAIL HUB
       </span>
 
       <h1>
@@ -83,14 +101,12 @@
       </h1>
 
       <p>
-        Please access the Product Hub using
-        the link assigned to your market.
+        This link does not contain a valid market.
       </p>
 
     </div>
 
-  </div>
-
+  </section>
 
 
   <!-- =====================================================
@@ -107,40 +123,22 @@
         aria-label="Product & Retail Hub"
       >
 
-        <span class="brand-main">
-          PRODUCT
+        <span class="brand-mark">
+          +
         </span>
 
-        <span class="brand-divider">
-          &
-        </span>
-
-        <span class="brand-secondary">
-          RETAIL HUB
+        <span class="brand-text">
+          PRODUCT & RETAIL HUB
         </span>
 
       </a>
 
 
-      <!--
-        NO HAY SELECTOR DE PAÍSES.
+      <div class="header-market">
 
-        El país se obtiene exclusivamente
-        desde la URL:
-
-        ?country=ES
-        ?country=PT
-        ?country=IT
-        ?country=FR
-        etc.
-      -->
-
-      <div class="market-indicator">
-
-        <span
-          class="market-dot"
-          aria-hidden="true"
-        ></span>
+        <span class="header-market-label">
+          MARKET
+        </span>
 
         <strong id="headerCountry">
           —
@@ -151,7 +149,6 @@
     </div>
 
   </header>
-
 
 
   <!-- =====================================================
@@ -169,75 +166,52 @@
 
       <div class="hero-inner">
 
-
-        <!-- HERO COPY -->
-
         <div class="hero-copy">
 
-
-          <div class="eyebrow">
-
-            <span class="eyebrow-text">
-              PRODUCT HUB
-            </span>
-
-            <span class="eyebrow-line"></span>
-
-            <span
-              class="eyebrow-country"
-              id="heroCountry"
-            >
-              —
-            </span>
-
-          </div>
+          <span
+            class="hero-overline"
+            id="heroCountry"
+          >
+            —
+          </span>
 
 
-
-          <h1 class="hero-title">
+          <h1>
 
             <span data-i18n="hero_title_1">
-              Todo el producto.
+              Everything
             </span>
 
             <span data-i18n="hero_title_2">
-              Toda la información.
+              you need.
             </span>
 
-            <span
-              class="hero-title-accent"
-              data-i18n="hero_title_3"
-            >
-              Un solo lugar.
+            <span data-i18n="hero_title_3">
+              In one place.
             </span>
 
           </h1>
-
 
 
           <p
             class="hero-description"
             data-i18n="hero_description"
           >
-            Colecciones, producto y herramientas
-            de consulta para cada mercado.
+            Your central space for collections,
+            product guides and retail resources.
           </p>
 
 
-
           <a
-            class="primary-button"
             href="#collections"
+            class="hero-button"
           >
 
             <span data-i18n="hero_cta">
-              EXPLORAR COLECCIONES
+              EXPLORE THE HUB
             </span>
 
-            <span
-              class="button-arrow"
-              aria-hidden="true"
-            >
+            <span aria-hidden="true">
               ↓
             </span>
 
@@ -246,51 +220,19 @@
         </div>
 
 
-
-        <!-- HERO VISUAL -->
-
         <div
-          class="hero-visual"
+          class="hero-graphic"
           aria-hidden="true"
         >
 
-          <div class="visual-backdrop"></div>
+          <div class="hero-circle">
 
-
-          <div class="visual-card visual-card-1">
-
-            <span class="visual-number">
-              01
-            </span>
-
-            <strong>
-              COLLECTIONS
-            </strong>
-
-          </div>
-
-
-          <div class="visual-card visual-card-2">
-
-            <span class="visual-number">
-              02
-            </span>
-
-            <strong>
+            <span>
               PRODUCT
-            </strong>
-
-          </div>
-
-
-          <div class="visual-card visual-card-3">
-
-            <span class="visual-number">
-              03
             </span>
 
             <strong>
-              RETAIL
+              HUB
             </strong>
 
           </div>
@@ -300,7 +242,6 @@
       </div>
 
     </section>
-
 
 
     <!-- ===================================================
@@ -308,63 +249,56 @@
     ==================================================== -->
 
     <section
-      class="section collections-section"
+      class="collections-section"
       id="collections"
     >
 
       <div class="section-inner">
 
 
-        <!-- TITLE -->
+        <!-- SECTION HEADER -->
 
         <div class="section-heading">
 
-          <p
-            class="section-overline"
-            data-i18n="collections_overline"
-          >
-            COLLECTIONS
-          </p>
+          <div>
 
+            <span
+              class="section-overline"
+              data-i18n="collections_overline"
+            >
+              COLLECTIONS
+            </span>
 
-          <div class="section-heading-grid">
 
             <h2 data-i18n="collections_title">
-              Colecciones
+              Current collections
             </h2>
 
-
-            <p data-i18n="collections_description">
-              Descubre las colecciones actuales,
-              los próximos lanzamientos
-              y nuestro histórico.
-            </p>
-
           </div>
+
+
+          <p data-i18n="collections_description">
+            Explore active, upcoming and previous
+            collections for your market.
+          </p>
 
         </div>
 
 
-
-        <!-- ================================
-             ACTIVE COLLECTIONS
-        ================================= -->
+        <!-- ACTIVE -->
 
         <div
           class="collection-group"
           id="activeGroup"
         >
 
-          <div class="group-heading">
+          <div class="collection-group-heading">
 
             <span
-              class="status-dot active"
-              aria-hidden="true"
-            ></span>
-
-            <h3 data-i18n="status_active">
-              ACTIVAS
-            </h3>
+              data-i18n="status_active"
+            >
+              ACTIVE
+            </span>
 
           </div>
 
@@ -372,31 +306,26 @@
           <div
             class="collection-grid"
             id="activeCollections"
-          ></div>
+          >
+          </div>
 
         </div>
 
 
-
-        <!-- ================================
-             UPCOMING COLLECTIONS
-        ================================= -->
+        <!-- UPCOMING -->
 
         <div
           class="collection-group"
           id="upcomingGroup"
         >
 
-          <div class="group-heading">
+          <div class="collection-group-heading">
 
             <span
-              class="status-dot upcoming"
-              aria-hidden="true"
-            ></span>
-
-            <h3 data-i18n="status_upcoming">
-              PRÓXIMAMENTE
-            </h3>
+              data-i18n="status_upcoming"
+            >
+              UPCOMING
+            </span>
 
           </div>
 
@@ -404,31 +333,26 @@
           <div
             class="collection-grid"
             id="upcomingCollections"
-          ></div>
+          >
+          </div>
 
         </div>
 
 
-
-        <!-- ================================
-             HISTORIC COLLECTIONS
-        ================================= -->
+        <!-- HISTORIC -->
 
         <div
           class="collection-group"
           id="historicGroup"
         >
 
-          <div class="group-heading">
+          <div class="collection-group-heading">
 
             <span
-              class="status-dot historic"
-              aria-hidden="true"
-            ></span>
-
-            <h3 data-i18n="status_historic">
-              HISTÓRICO
-            </h3>
+              data-i18n="status_historic"
+            >
+              HISTORIC
+            </span>
 
           </div>
 
@@ -436,14 +360,14 @@
           <div
             class="collection-grid"
             id="historicCollections"
-          ></div>
+          >
+          </div>
 
         </div>
 
       </div>
 
     </section>
-
 
 
     <!-- ===================================================
@@ -451,96 +375,88 @@
     ==================================================== -->
 
     <section
-      class="section product-section"
+      class="product-section"
       id="product"
     >
 
       <div class="section-inner">
 
 
-        <div
-          class="section-heading
-                 section-heading-light"
-        >
+        <div class="product-heading">
 
-          <p
+          <span
             class="section-overline"
             data-i18n="product_overline"
           >
-            PRODUCT GUIDE
+            PRODUCT
+          </span>
+
+
+          <h2 data-i18n="product_title">
+            Product knowledge
+          </h2>
+
+
+          <p data-i18n="product_description">
+            Access product guides and essential
+            information for your market.
           </p>
-
-
-          <div class="section-heading-grid">
-
-            <h2 data-i18n="product_title">
-              Producto
-            </h2>
-
-
-            <p data-i18n="product_description">
-              Consulta nuestros manuales
-              y guías de producto.
-            </p>
-
-          </div>
 
         </div>
 
 
-
-        <!--
-          PRODUCTOS GENERADOS
-          AUTOMÁTICAMENTE DESDE GOOGLE SHEETS
-        -->
-
         <div
           class="product-grid"
           id="productGrid"
-        ></div>
+        >
+        </div>
 
       </div>
 
     </section>
 
 
-
     <!-- ===================================================
-         RETAIL RESOURCES
+         RESOURCES
     ==================================================== -->
 
-    <section
-      class="section resources-section"
-      id="resources"
-    >
+    <section class="resources-section">
 
       <div class="section-inner">
-
-
-        <p
-          class="section-overline"
-          data-i18n="resources_overline"
-        >
-          RETAIL RESOURCES
-        </p>
-
 
         <div class="resources-layout">
 
 
-          <h2 data-i18n="resources_title">
-            Todo conectado.
-          </h2>
+          <div class="resources-title">
+
+            <span
+              class="section-overline"
+              data-i18n="resources_overline"
+            >
+              RESOURCES
+            </span>
+
+
+            <h2 data-i18n="resources_title">
+              One hub.
+              <br>
+              Always updated.
+            </h2>
+
+          </div>
 
 
           <div class="resources-copy">
 
             <p data-i18n="resources_copy_1">
-              Un único punto de acceso.
+              This space centralises the latest
+              product and collection information.
             </p>
 
+
             <p data-i18n="resources_copy_2">
-              Para todos nuestros mercados.
+              Use your market link to access
+              the content prepared for your country.
             </p>
 
           </div>
@@ -555,7 +471,6 @@
   </main>
 
 
-
   <!-- =====================================================
        FOOTER
   ====================================================== -->
@@ -564,25 +479,23 @@
 
     <div class="footer-inner">
 
-
       <div class="footer-brand">
+
+        <span class="brand-mark">
+          +
+        </span>
 
         <strong>
           PRODUCT & RETAIL HUB
         </strong>
 
-        <p>
-          Internal Retail Platform
-        </p>
-
       </div>
-
 
 
       <div class="footer-market">
 
         <span data-i18n="current_view">
-          ESTÁS VIENDO
+          CURRENT VIEW
         </span>
 
         <strong id="footerCountry">
@@ -596,29 +509,13 @@
   </footer>
 
 
-
   <!-- =====================================================
        JAVASCRIPT
   ====================================================== -->
 
-  <!--
-    RESPALDO TEMPORAL
-  -->
-
-  <script src="./content.js?v=10"></script>
-
-
-  <!--
-    GOOGLE SHEETS
-        ↓
-    APPS SCRIPT
-        ↓
-    APP.JS
-        ↓
-    GITHUB PAGES
-  -->
-
-  <script src="./app.js?v=11"></script>
+  <script
+    src="./app.js?v=12"
+  ></script>
 
 
 </body>
