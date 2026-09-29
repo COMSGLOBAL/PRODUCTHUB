@@ -1,0 +1,44 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Product & Retail Hub</title>
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+  <header class="topbar">
+    <a class="brand" href="#">PRODUCT & RETAIL HUB</a>
+    <label class="country-picker">País <select id="countrySelect"></select></label>
+  </header>
+
+  <main>
+    <section class="hero">
+      <span class="eyebrow">PRODUCT HUB · <strong id="countryName">ESPAÑA</strong></span>
+      <h1>Todo el producto.<br>Toda la información.<br><em>Un solo lugar.</em></h1>
+      <p>Consulta colecciones, producto y recursos disponibles para tu mercado.</p>
+      <a class="button" href="#collections">Ver colecciones →</a>
+    </section>
+
+    <section class="section" id="collections">
+      <div class="section-heading"><span>01</span><div><h2>Colecciones</h2><p>Accede a las webs de las colecciones disponibles para tu país.</p></div></div>
+      <h3>Activas</h3><div id="activeCollections" class="grid"></div>
+      <h3>Próximamente</h3><div id="comingCollections" class="grid"></div>
+      <h3>Histórico / retiradas</h3><div id="historicCollections" class="grid"></div>
+    </section>
+
+    <section class="section" id="product">
+      <div class="section-heading"><span>02</span><div><h2>Producto</h2><p>Manuales y guías de consulta por categoría.</p></div></div>
+      <div id="productGrid" class="product-grid"></div>
+    </section>
+
+    <section class="section resources">
+      <div class="section-heading"><span>03</span><div><h2>Recursos</h2><p>El Hub crecerá con documentación y herramientas para Retail.</p></div></div>
+      <div class="resource-card"><strong>Base preparada para crecer</strong><p>Las URLs están separadas de la interfaz para poder actualizarlas sin rediseñar el portal.</p></div>
+    </section>
+  </main>
+
+  <footer>PRODUCT & RETAIL HUB · <span id="footerCountry"></span></footer>
+  <script src="js/app.js"></script>
+</body>
+</html>
