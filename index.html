@@ -1,207 +1,598 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="Product & Retail Hub">
+
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+  >
+
+  <meta
+    name="description"
+    content="Product & Retail Hub"
+  >
+
   <title>Product & Retail Hub</title>
 
-  <link rel="stylesheet" href="style.css?v=3">
+  <!-- ARIMO -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+  <link
+    href="https://fonts.googleapis.com/css2?family=Arimo:wght@400;500;600;700&display=swap"
+    rel="stylesheet"
+  >
+
+  <!-- CSS -->
+  <link
+    rel="stylesheet"
+    href="style.css?v=6"
+  >
 </head>
+
 
 <body>
 
-<header class="header">
-  <a class="logo" href="#top">
-    PRODUCT <span>&</span> RETAIL HUB
-  </a>
+  <!-- =====================================================
+       LOADING
+  ====================================================== -->
 
-  <div class="country-selector">
-    <span>VIEW</span>
-    <select id="countrySelect"></select>
-  </div>
-</header>
+  <div
+    class="hub-loader"
+    id="hubLoader"
+  >
+    <div class="loader-content">
 
-
-<main id="top">
-
-  <!-- HERO -->
-  <section class="hero">
-
-    <div class="hero-content">
-
-      <div class="market-line">
-        PRODUCT HUB
-        <span>—</span>
-        <strong id="heroCountry">ESPAÑA</strong>
+      <div class="loader-mark">
+        P
       </div>
 
+      <span>
+        PRODUCT & RETAIL HUB
+      </span>
+
+    </div>
+  </div>
+
+
+  <!-- =====================================================
+       INVALID MARKET
+  ====================================================== -->
+
+  <div
+    class="market-error"
+    id="marketError"
+    hidden
+  >
+
+    <div class="market-error-inner">
+
+      <span class="market-error-code">
+        PRODUCT HUB
+      </span>
+
       <h1>
-        Todo el producto.<br>
-        Toda la información.<br>
-        <em>Un solo lugar.</em>
+        Market not available
       </h1>
 
       <p>
-        Colecciones, producto y herramientas de consulta
-        para cada mercado.
+        Please access the Product Hub using
+        the link assigned to your market.
       </p>
 
-      <a class="main-button" href="#collections">
-        EXPLORAR COLECCIONES
-        <span>↘</span>
+    </div>
+
+  </div>
+
+
+  <!-- =====================================================
+       HEADER
+  ====================================================== -->
+
+  <header class="site-header">
+
+    <div class="header-inner">
+
+      <a
+        class="brand"
+        href="#top"
+        aria-label="Product & Retail Hub"
+      >
+
+        <span class="brand-main">
+          PRODUCT
+        </span>
+
+        <span class="brand-divider">
+          &
+        </span>
+
+        <span class="brand-secondary">
+          RETAIL HUB
+        </span>
+
       </a>
 
+
+      <!--
+        YA NO EXISTE SELECTOR DE PAÍS.
+
+        El mercado viene exclusivamente de:
+        ?country=ES
+        ?country=FR
+        etc.
+      -->
+
+      <div class="market-indicator">
+
+        <span
+          class="market-dot"
+          aria-hidden="true"
+        ></span>
+
+        <strong id="headerCountry">
+          —
+        </strong>
+
+      </div>
+
     </div>
 
-    <div class="hero-visual">
+  </header>
 
-      <div class="visual-card card-1">
-        <span>01</span>
-        COLLECTIONS
+
+  <!-- =====================================================
+       MAIN
+  ====================================================== -->
+
+  <main id="top">
+
+
+    <!-- ===================================================
+         HERO
+    ==================================================== -->
+
+    <section class="hero">
+
+      <div class="hero-inner">
+
+
+        <!-- COPY -->
+
+        <div class="hero-copy">
+
+          <div class="eyebrow">
+
+            <span class="eyebrow-text">
+              PRODUCT HUB
+            </span>
+
+            <span class="eyebrow-line"></span>
+
+            <span
+              class="eyebrow-country"
+              id="heroCountry"
+            >
+              —
+            </span>
+
+          </div>
+
+
+          <h1 class="hero-title">
+
+            <span data-i18n="hero_title_1">
+              Todo el producto.
+            </span>
+
+            <span data-i18n="hero_title_2">
+              Toda la información.
+            </span>
+
+            <span
+              class="hero-title-accent"
+              data-i18n="hero_title_3"
+            >
+              Un solo lugar.
+            </span>
+
+          </h1>
+
+
+          <p
+            class="hero-description"
+            data-i18n="hero_description"
+          >
+            Colecciones, producto y herramientas
+            de consulta para cada mercado.
+          </p>
+
+
+          <a
+            class="primary-button"
+            href="#collections"
+          >
+
+            <span data-i18n="hero_cta">
+              EXPLORAR COLECCIONES
+            </span>
+
+            <span
+              class="button-arrow"
+              aria-hidden="true"
+            >
+              ↓
+            </span>
+
+          </a>
+
+        </div>
+
+
+        <!-- VISUAL -->
+
+        <div
+          class="hero-visual"
+          aria-hidden="true"
+        >
+
+          <div class="visual-backdrop"></div>
+
+
+          <div class="visual-card visual-card-1">
+
+            <span class="visual-number">
+              01
+            </span>
+
+            <strong>
+              COLLECTIONS
+            </strong>
+
+          </div>
+
+
+          <div class="visual-card visual-card-2">
+
+            <span class="visual-number">
+              02
+            </span>
+
+            <strong>
+              PRODUCT
+            </strong>
+
+          </div>
+
+
+          <div class="visual-card visual-card-3">
+
+            <span class="visual-number">
+              03
+            </span>
+
+            <strong>
+              RETAIL
+            </strong>
+
+          </div>
+
+        </div>
+
       </div>
 
-      <div class="visual-card card-2">
-        <span>02</span>
-        PRODUCT
+    </section>
+
+
+
+    <!-- ===================================================
+         COLLECTIONS
+    ==================================================== -->
+
+    <section
+      class="section collections-section"
+      id="collections"
+    >
+
+      <div class="section-inner">
+
+
+        <!-- SECTION TITLE -->
+
+        <div class="section-heading">
+
+          <p
+            class="section-overline"
+            data-i18n="collections_overline"
+          >
+            COLLECTIONS
+          </p>
+
+
+          <div class="section-heading-grid">
+
+            <h2 data-i18n="collections_title">
+              Colecciones
+            </h2>
+
+
+            <p data-i18n="collections_description">
+              Descubre las colecciones actuales,
+              los próximos lanzamientos y nuestro histórico.
+            </p>
+
+          </div>
+
+        </div>
+
+
+
+        <!-- ================================
+             ACTIVE
+        ================================= -->
+
+        <div
+          class="collection-group"
+          id="activeGroup"
+        >
+
+          <div class="group-heading">
+
+            <span
+              class="status-dot active"
+              aria-hidden="true"
+            ></span>
+
+            <h3 data-i18n="status_active">
+              ACTIVAS
+            </h3>
+
+          </div>
+
+
+          <div
+            class="collection-grid"
+            id="activeCollections"
+          ></div>
+
+        </div>
+
+
+
+        <!-- ================================
+             UPCOMING
+        ================================= -->
+
+        <div
+          class="collection-group"
+          id="upcomingGroup"
+        >
+
+          <div class="group-heading">
+
+            <span
+              class="status-dot upcoming"
+              aria-hidden="true"
+            ></span>
+
+            <h3 data-i18n="status_upcoming">
+              PRÓXIMAMENTE
+            </h3>
+
+          </div>
+
+
+          <div
+            class="collection-grid"
+            id="upcomingCollections"
+          ></div>
+
+        </div>
+
+
+
+        <!-- ================================
+             HISTORIC
+        ================================= -->
+
+        <div
+          class="collection-group"
+          id="historicGroup"
+        >
+
+          <div class="group-heading">
+
+            <span
+              class="status-dot historic"
+              aria-hidden="true"
+            ></span>
+
+            <h3 data-i18n="status_historic">
+              HISTÓRICO
+            </h3>
+
+          </div>
+
+
+          <div
+            class="collection-grid"
+            id="historicCollections"
+          ></div>
+
+        </div>
+
       </div>
 
-      <div class="visual-card card-3">
-        <span>03</span>
-        RETAIL
+    </section>
+
+
+
+    <!-- ===================================================
+         PRODUCT
+    ==================================================== -->
+
+    <section
+      class="section product-section"
+      id="product"
+    >
+
+      <div class="section-inner">
+
+
+        <div
+          class="section-heading
+                 section-heading-light"
+        >
+
+          <p
+            class="section-overline"
+            data-i18n="product_overline"
+          >
+            PRODUCT GUIDE
+          </p>
+
+
+          <div class="section-heading-grid">
+
+            <h2 data-i18n="product_title">
+              Producto
+            </h2>
+
+
+            <p data-i18n="product_description">
+              Consulta nuestros manuales
+              y guías de producto.
+            </p>
+
+          </div>
+
+        </div>
+
+
+        <!--
+          LAS TARJETAS SE GENERAN
+          DESDE GOOGLE SHEETS
+        -->
+
+        <div
+          class="product-grid"
+          id="productGrid"
+        ></div>
+
       </div>
 
-      <div class="green-circle"></div>
-
-    </div>
-
-  </section>
+    </section>
 
 
-  <!-- COLECCIONES -->
-  <section class="section" id="collections">
 
-    <div class="section-intro">
+    <!-- ===================================================
+         RETAIL RESOURCES
+    ==================================================== -->
 
-      <span class="section-number">01</span>
+    <section
+      class="section resources-section"
+      id="resources"
+    >
 
-      <div>
-        <p class="overline">COLLECTIONS</p>
-        <h2>Colecciones</h2>
-        <p class="section-description">
-          Descubre las colecciones actuales, los próximos
-          lanzamientos y nuestro histórico.
+      <div class="section-inner">
+
+        <p
+          class="section-overline"
+          data-i18n="resources_overline"
+        >
+          RETAIL RESOURCES
         </p>
+
+
+        <div class="resources-layout">
+
+          <h2 data-i18n="resources_title">
+            Todo conectado.
+          </h2>
+
+
+          <div class="resources-copy">
+
+            <p data-i18n="resources_copy_1">
+              Un único punto de acceso.
+            </p>
+
+            <p data-i18n="resources_copy_2">
+              Para todos nuestros mercados.
+            </p>
+
+          </div>
+
+        </div>
+
       </div>
 
-    </div>
+    </section>
 
 
-    <div class="collection-block">
-
-      <div class="block-title">
-        <h3>ACTIVAS</h3>
-        <span class="active-dot"></span>
-      </div>
-
-      <div class="collection-grid" id="activeCollections"></div>
-
-    </div>
+  </main>
 
 
-    <div class="collection-block">
 
-      <div class="block-title">
-        <h3>PRÓXIMAMENTE</h3>
-        <span class="upcoming-dot"></span>
-      </div>
+  <!-- =====================================================
+       FOOTER
+  ====================================================== -->
 
-      <div class="collection-grid" id="upcomingCollections"></div>
+  <footer class="site-footer">
 
-    </div>
+    <div class="footer-inner">
 
+      <div class="footer-brand">
 
-    <div class="collection-block">
+        <strong>
+          PRODUCT & RETAIL HUB
+        </strong>
 
-      <div class="block-title">
-        <h3>HISTÓRICO</h3>
-        <span class="historic-dot"></span>
-      </div>
-
-      <div class="collection-grid" id="historicCollections"></div>
-
-    </div>
-
-  </section>
-
-
-  <!-- PRODUCTO -->
-  <section class="section product-area" id="product">
-
-    <div class="section-intro">
-
-      <span class="section-number">02</span>
-
-      <div>
-        <p class="overline">PRODUCT GUIDE</p>
-        <h2>Producto</h2>
-        <p class="section-description">
-          Consulta nuestros manuales y guías de producto.
+        <p>
+          Internal Retail Platform
         </p>
+
+      </div>
+
+
+      <div class="footer-market">
+
+        <span data-i18n="current_view">
+          ESTÁS VIENDO
+        </span>
+
+        <strong id="footerCountry">
+          —
+        </strong>
+
       </div>
 
     </div>
 
-    <div class="product-grid" id="productGrid"></div>
-
-  </section>
+  </footer>
 
 
-  <!-- RECURSOS -->
-  <section class="section resources" id="resources">
 
-    <div class="section-intro">
+  <!-- =====================================================
+       JAVASCRIPT
+  ====================================================== -->
 
-      <span class="section-number">03</span>
+  <!--
+    content.js queda temporalmente como respaldo.
+    Los datos reales vienen del Google Sheet.
+  -->
 
-      <div>
-        <p class="overline">RETAIL RESOURCES</p>
-        <h2>Todo conectado.</h2>
-      </div>
+  <script src="content.js?v=6"></script>
 
-    </div>
+  <!--
+    app.js conecta:
+    GitHub → Apps Script → Google Sheets
+  -->
 
-    <div class="resource-box">
-
-      <div>
-        <span>PRODUCT & RETAIL HUB</span>
-
-        <h3>
-          Un único punto de acceso.<br>
-          Para todos nuestros mercados.
-        </h3>
-      </div>
-
-      <div class="current-market">
-        <small>ESTÁS VIENDO</small>
-        <strong id="footerCountry">ESPAÑA</strong>
-      </div>
-
-    </div>
-
-  </section>
-
-</main>
-
-
-<footer>
-  <span>PRODUCT & RETAIL HUB</span>
-  <span>INTERNAL PLATFORM · 2026</span>
-</footer>
-
-
-<script src="content.js?v=3"></script>
-<script src="app.js?v=3"></script>
+  <script src="app.js?v=6"></script>
 
 </body>
+
 </html>
