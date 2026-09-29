@@ -1,36 +1,404 @@
-const EUROPE = new Set(["ES","PT","IT","FR","PL","RO","CZ","GR","TR"]);
-const LATAM = new Set(["MX","CL","CO","PE"]);
-const params = new URLSearchParams(location.search);
-let country = (params.get("country") || "ES").toUpperCase();
+(function () {
 
-function start(){
-  const data = window.HUB_DATA;
-  if(!data.countries[country]) country = "ES";
-  const select = document.getElementById("countrySelect");
-  Object.entries(data.countries).forEach(([code,name]) => select.add(new Option(`${code} · ${name}`,code)));
-  select.value = country;
-  select.onchange = () => { const u=new URL(location.href); u.searchParams.set("country",select.value); location.href=u; };
-  document.documentElement.lang = country.toLowerCase();
-  document.getElementById("countryName").textContent = data.countries[country].toUpperCase();
-  document.getElementById("footerCountry").textContent = `${country} · ${data.countries[country]}`;
-  renderCollections(data.collections);
-  renderProducts(data.products);
-}
-function available(item){ return item.countries === "global" || item.countries.includes(country); }
-function region(){ return EUROPE.has(country)?"EU":LATAM.has(country)?"LATAM":""; }
-function statusLabel(s){ return s==="active"?"ACTIVA":s==="coming"?"PRÓXIMAMENTE":"HISTÓRICO"; }
-function card(c){
-  const url=c.urls[country];
-  const note=c.noteByRegion?.[region()] || "";
-  return `<article class="collection-card"><div class="visual visual-${c.id}"><span>${c.name}</span></div><div class="card-body"><div class="meta"><span class="status ${c.status}">${statusLabel(c.status)}</span><span>${country}</span></div><h4>${c.name}</h4>${note?`<p class="note">${note}</p>`:""}${url?`<a class="text-link" target="_blank" rel="noopener" href="${url}">VER COLECCIÓN →</a>`:`<span class="text-link disabled">ENLACE ${country} PENDIENTE</span>`}</div></article>`;
-}
-function renderCollections(items){
-  const visible=items.filter(available);
-  document.getElementById("activeCollections").innerHTML=visible.filter(x=>x.status==="active").map(card).join("");
-  document.getElementById("comingCollections").innerHTML=visible.filter(x=>x.status==="coming").map(card).join("");
-  document.getElementById("historicCollections").innerHTML=visible.filter(x=>x.status==="historic").map(card).join("");
-}
-function renderProducts(items){
-  document.getElementById("productGrid").innerHTML=items.map(p=>{const url=p.urls[country];return `<article class="product-card"><span>PRODUCT GUIDE</span><h4>${p.name}</h4><p>${p.description}</p>${url?`<a target="_blank" rel="noopener" href="${url}">ABRIR →</a>`:`<span class="disabled">PDF / WEB ${country} PENDIENTE</span>`}</article>`}).join("");
-}
-const script=document.createElement("script"); script.src="data/content.js"; script.onload=start; document.head.appendChild(script);
+  const DEFAULT_COUNTRY = "ES";
+
+  const params = new URLSearchParams(window.location.search);
+
+  let currentCountry =
+    (params.get("country") || DEFAULT_COUNTRY).toUpperCase();
+
+
+  if (!HUB_DATA.countries[currentCountry]) {
+    currentCountry = DEFAULT_COUNTRY;
+  }
+
+
+  const countrySelect =
+    document.getElementById("countrySelect");
+
+  const heroCountry =
+    document.getElementById("heroCountry");
+
+  const footerCountry =
+    document.getElementById("footerCountry");
+
+  const activeContainer =
+    document.getElementById("activeCollections");
+
+  const upcomingContainer =
+    document.getElementById("upcomingCollections");
+
+  const historicContainer =
+    document.getElementById("historicCollections");
+
+  const productGrid =
+    document.getElementById("productGrid");
+
+
+  /* ==============================
+     SELECTOR DE PAÍS
+  ============================== */
+
+  function buildCountrySelector() {
+
+    countrySelect.innerHTML = "";
+
+    Object.entries(HUB_DATA.countries)
+      .forEach(([code, country]) => {
+
+        const option =
+          document.createElement("option");
+
+        option.value = code;
+
+        option.textContent =
+          `${country.flag} ${country.name}`;
+
+        if (code === currentCountry) {
+          option.selected = true;
+        }
+
+        countrySelect.appendChild(option);
+
+      });
+
+  }
+
+
+  /* ==============================
+     CAMBIAR PAÍS
+  ============================== */
+
+  countrySelect.addEventListener(
+    "change",
+    function () {
+
+      const country = this.value;
+
+      const url =
+        new URL(window.location.href);
+
+      url.searchParams.set(
+        "country",
+        country
+      );
+
+      window.location.href =
+        url.toString();
+
+    }
+  );
+
+
+  /* ==============================
+     INFORMACIÓN DE PAÍS
+  ============================== */
+
+  function renderCountry() {
+
+    const country =
+      HUB_DATA.countries[currentCountry];
+
+    heroCountry.textContent =
+      country.name;
+
+    footerCountry.textContent =
+      `${country.flag} ${country.name}`;
+
+    document.documentElement.lang =
+      currentCountry.toLowerCase();
+
+  }
+
+
+  /* ==============================
+     TARJETAS COLECCIONES
+  ============================== */
+
+  function createCollectionCard(collection) {
+
+    const card =
+      document.createElement("article");
+
+    card.className =
+      "collection-card";
+
+
+    if (collection.status === "active") {
+      card.classList.add("active-card");
+    }
+
+
+    const statusNames = {
+
+      active: "ACTIVA",
+      upcoming: "PRÓXIMAMENTE",
+      historic: "HISTÓRICO"
+
+    };
+
+
+    const url =
+      collection.urls?.[currentCountry] || "";
+
+
+    const hasLink =
+      url.trim() !== "";
+
+
+    if (!hasLink) {
+      card.classList.add("disabled-card");
+    }
+
+
+    let action;
+
+
+    if (
+      collection.status === "upcoming"
+    ) {
+
+      action =
+        `<span class="card-link">
+          PRÓXIMAMENTE
+        </span>`;
+
+    }
+
+    else if (hasLink) {
+
+      action =
+        `<a
+          class="card-link"
+          href="${url}"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          VER COLECCIÓN →
+        </a>`;
+
+    }
+
+    else {
+
+      action =
+        `<span class="card-link">
+          ENLACE PENDIENTE
+        </span>`;
+
+    }
+
+
+    card.innerHTML = `
+
+      <span class="card-status">
+        ${statusNames[collection.status]}
+      </span>
+
+      <h4>
+        ${collection.name}
+      </h4>
+
+      <p>
+        ${collection.subtitle || ""}
+      </p>
+
+      ${action}
+
+    `;
+
+
+    return card;
+
+  }
+
+
+  /* ==============================
+     RENDER COLECCIONES
+  ============================== */
+
+  function renderCollections() {
+
+    activeContainer.innerHTML = "";
+    upcomingContainer.innerHTML = "";
+    historicContainer.innerHTML = "";
+
+
+    const availableCollections =
+      HUB_DATA.collections.filter(
+        collection =>
+          collection.countries.includes(
+            currentCountry
+          )
+      );
+
+
+    availableCollections.forEach(
+      collection => {
+
+        const card =
+          createCollectionCard(collection);
+
+
+        if (
+          collection.status === "active"
+        ) {
+
+          activeContainer.appendChild(card);
+
+        }
+
+
+        if (
+          collection.status === "upcoming"
+        ) {
+
+          upcomingContainer.appendChild(card);
+
+        }
+
+
+        if (
+          collection.status === "historic"
+        ) {
+
+          historicContainer.appendChild(card);
+
+        }
+
+      }
+    );
+
+
+    hideEmptyGroup(
+      historicContainer
+    );
+
+  }
+
+
+  /* ==============================
+     OCULTAR GRUPO VACÍO
+  ============================== */
+
+  function hideEmptyGroup(container) {
+
+    const block =
+      container.closest(
+        ".collection-block"
+      );
+
+    if (!block) return;
+
+    block.style.display =
+      container.children.length
+        ? ""
+        : "none";
+
+  }
+
+
+  /* ==============================
+     PRODUCTOS
+  ============================== */
+
+  function renderProducts() {
+
+    productGrid.innerHTML = "";
+
+
+    HUB_DATA.products.forEach(
+      (product, index) => {
+
+        const card =
+          document.createElement("article");
+
+        card.className =
+          "product-card";
+
+
+        const url =
+          product.urls?.[
+            currentCountry
+          ] || "";
+
+
+        const hasLink =
+          url.trim() !== "";
+
+
+        const number =
+          String(index + 1)
+            .padStart(2, "0");
+
+
+        card.innerHTML = `
+
+          <span class="product-index">
+            ${number}
+          </span>
+
+          <div>
+
+            <h3>
+              ${product.name}
+            </h3>
+
+            <p>
+              ${product.description}
+            </p>
+
+          </div>
+
+          ${
+            hasLink
+
+              ? `
+                <a
+                  class="product-link"
+                  href="${url}"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  ABRIR GUÍA →
+                </a>
+              `
+
+              : `
+                <span class="product-link">
+                  PRÓXIMAMENTE
+                </span>
+              `
+          }
+
+        `;
+
+
+        productGrid.appendChild(card);
+
+      }
+    );
+
+  }
+
+
+  /* ==============================
+     INICIO
+  ============================== */
+
+  function init() {
+
+    buildCountrySelector();
+
+    renderCountry();
+
+    renderCollections();
+
+    renderProducts();
+
+  }
+
+
+  init();
+
+})();
