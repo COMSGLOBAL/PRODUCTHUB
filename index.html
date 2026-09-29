@@ -1,44 +1,349 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <meta charset="UTF-8">
+
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+  >
+
+  <meta
+    name="description"
+    content="Product & Retail Hub - Portal interno de colecciones, producto y recursos."
+  >
+
   <title>Product & Retail Hub</title>
-  <link rel="stylesheet" href="css/style.css" />
+
+  <!-- CSS -->
+  <link rel="stylesheet" href="./style.css">
 </head>
+
 <body>
-  <header class="topbar">
-    <a class="brand" href="#">PRODUCT & RETAIL HUB</a>
-    <label class="country-picker">País <select id="countrySelect"></select></label>
+
+  <!-- =========================================
+       HEADER
+  ========================================== -->
+  <header class="site-header">
+
+    <a href="#top" class="brand">
+      <span class="brand-mark"></span>
+
+      <span class="brand-text">
+        PRODUCT & RETAIL HUB
+      </span>
+    </a>
+
+    <div class="country-control">
+
+      <label for="countrySelect">
+        País
+      </label>
+
+      <select
+        id="countrySelect"
+        aria-label="Seleccionar país"
+      >
+      </select>
+
+    </div>
+
   </header>
 
-  <main>
+
+  <main id="top">
+
+    <!-- =========================================
+         HERO
+    ========================================== -->
     <section class="hero">
-      <span class="eyebrow">PRODUCT HUB · <strong id="countryName">ESPAÑA</strong></span>
-      <h1>Todo el producto.<br>Toda la información.<br><em>Un solo lugar.</em></h1>
-      <p>Consulta colecciones, producto y recursos disponibles para tu mercado.</p>
-      <a class="button" href="#collections">Ver colecciones →</a>
+
+      <div class="hero-inner">
+
+        <div class="eyebrow">
+          <span>PRODUCT HUB</span>
+          <span>·</span>
+          <strong id="heroCountry">
+            ESPAÑA
+          </strong>
+        </div>
+
+        <h1>
+          Todo el producto.<br>
+          Toda la información.<br>
+          <em>Un solo lugar.</em>
+        </h1>
+
+        <p class="hero-copy">
+          Consulta las colecciones, producto y recursos
+          disponibles para tu mercado.
+        </p>
+
+        <a
+          href="#collections"
+          class="primary-button"
+        >
+          Ver colecciones
+          <span>→</span>
+        </a>
+
+      </div>
+
+      <div class="hero-decoration">
+
+        <div class="hero-card hero-card-one">
+          COLLECTIONS
+        </div>
+
+        <div class="hero-card hero-card-two">
+          PRODUCT
+        </div>
+
+        <div class="hero-circle"></div>
+
+      </div>
+
     </section>
 
-    <section class="section" id="collections">
-      <div class="section-heading"><span>01</span><div><h2>Colecciones</h2><p>Accede a las webs de las colecciones disponibles para tu país.</p></div></div>
-      <h3>Activas</h3><div id="activeCollections" class="grid"></div>
-      <h3>Próximamente</h3><div id="comingCollections" class="grid"></div>
-      <h3>Histórico / retiradas</h3><div id="historicCollections" class="grid"></div>
+
+    <!-- =========================================
+         COLECCIONES
+    ========================================== -->
+    <section
+      class="section collections-section"
+      id="collections"
+    >
+
+      <div class="section-heading">
+
+        <div class="section-number">
+          01
+        </div>
+
+        <div>
+
+          <span class="section-kicker">
+            COLLECTIONS
+          </span>
+
+          <h2>
+            Colecciones
+          </h2>
+
+          <p>
+            Accede a las webs de las colecciones
+            disponibles para tu país.
+          </p>
+
+        </div>
+
+      </div>
+
+
+      <!-- ACTIVAS -->
+      <div class="collection-group">
+
+        <div class="group-heading">
+
+          <h3>
+            Activas
+          </h3>
+
+          <span class="status-dot active"></span>
+
+        </div>
+
+        <div
+          class="collection-grid"
+          id="activeCollections"
+        >
+        </div>
+
+      </div>
+
+
+      <!-- PRÓXIMAMENTE -->
+      <div class="collection-group">
+
+        <div class="group-heading">
+
+          <h3>
+            Próximamente
+          </h3>
+
+          <span class="status-dot upcoming"></span>
+
+        </div>
+
+        <div
+          class="collection-grid"
+          id="upcomingCollections"
+        >
+        </div>
+
+      </div>
+
+
+      <!-- HISTÓRICO -->
+      <div class="collection-group">
+
+        <div class="group-heading">
+
+          <h3>
+            Histórico / retiradas
+          </h3>
+
+          <span class="status-dot historic"></span>
+
+        </div>
+
+        <div
+          class="collection-grid"
+          id="historicCollections"
+        >
+        </div>
+
+      </div>
+
     </section>
 
-    <section class="section" id="product">
-      <div class="section-heading"><span>02</span><div><h2>Producto</h2><p>Manuales y guías de consulta por categoría.</p></div></div>
-      <div id="productGrid" class="product-grid"></div>
+
+    <!-- =========================================
+         PRODUCTO
+    ========================================== -->
+    <section
+      class="section product-section"
+      id="product"
+    >
+
+      <div class="section-heading">
+
+        <div class="section-number">
+          02
+        </div>
+
+        <div>
+
+          <span class="section-kicker">
+            PRODUCT GUIDE
+          </span>
+
+          <h2>
+            Producto
+          </h2>
+
+          <p>
+            Manuales, webs y guías de consulta
+            organizadas por categoría.
+          </p>
+
+        </div>
+
+      </div>
+
+
+      <div
+        class="product-grid"
+        id="productGrid"
+      >
+      </div>
+
     </section>
 
-    <section class="section resources">
-      <div class="section-heading"><span>03</span><div><h2>Recursos</h2><p>El Hub crecerá con documentación y herramientas para Retail.</p></div></div>
-      <div class="resource-card"><strong>Base preparada para crecer</strong><p>Las URLs están separadas de la interfaz para poder actualizarlas sin rediseñar el portal.</p></div>
+
+    <!-- =========================================
+         RECURSOS
+    ========================================== -->
+    <section
+      class="section resources-section"
+      id="resources"
+    >
+
+      <div class="section-heading">
+
+        <div class="section-number">
+          03
+        </div>
+
+        <div>
+
+          <span class="section-kicker">
+            RETAIL RESOURCES
+          </span>
+
+          <h2>
+            Recursos
+          </h2>
+
+          <p>
+            Un espacio que seguirá creciendo con
+            documentación y herramientas para Retail.
+          </p>
+
+        </div>
+
+      </div>
+
+
+      <div class="resources-banner">
+
+        <div>
+
+          <span class="resource-label">
+            PRODUCT & RETAIL HUB
+          </span>
+
+          <h3>
+            Toda la información.<br>
+            Siempre actualizada.
+          </h3>
+
+        </div>
+
+        <div class="resource-country">
+
+          <span>
+            Vista actual
+          </span>
+
+          <strong id="footerCountry">
+            ESPAÑA
+          </strong>
+
+        </div>
+
+      </div>
+
     </section>
+
   </main>
 
-  <footer>PRODUCT & RETAIL HUB · <span id="footerCountry"></span></footer>
-  <script src="js/app.js"></script>
+
+  <!-- =========================================
+       FOOTER
+  ========================================== -->
+  <footer class="site-footer">
+
+    <div>
+      PRODUCT & RETAIL HUB
+    </div>
+
+    <div>
+      INTERNAL PRODUCT PLATFORM
+    </div>
+
+  </footer>
+
+
+  <!-- =========================================
+       DATA + JAVASCRIPT
+
+       IMPORTANTE:
+       Estos archivos están en la raíz de GitHub.
+  ========================================== -->
+
+  <script src="./content.js"></script>
+  <script src="./app.js"></script>
+
 </body>
 </html>
