@@ -16,7 +16,7 @@
 
   <title>Product & Retail Hub</title>
 
-  <!-- ARIMO -->
+  <!-- GOOGLE FONT · ARIMO -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 
@@ -25,15 +25,17 @@
     rel="stylesheet"
   >
 
-  <!-- CSS -->
+  <!-- MASTER CSS -->
   <link
     rel="stylesheet"
-    href="style.css?v=6"
+    href="./style.css?v=10"
   >
+
 </head>
 
 
 <body>
+
 
   <!-- =====================================================
        LOADING
@@ -43,6 +45,7 @@
     class="hub-loader"
     id="hubLoader"
   >
+
     <div class="loader-content">
 
       <div class="loader-mark">
@@ -54,7 +57,9 @@
       </span>
 
     </div>
+
   </div>
+
 
 
   <!-- =====================================================
@@ -87,6 +92,7 @@
   </div>
 
 
+
   <!-- =====================================================
        HEADER
   ====================================================== -->
@@ -117,10 +123,14 @@
 
 
       <!--
-        YA NO EXISTE SELECTOR DE PAÍS.
+        NO HAY SELECTOR DE PAÍSES.
 
-        El mercado viene exclusivamente de:
+        El país se obtiene exclusivamente
+        desde la URL:
+
         ?country=ES
+        ?country=PT
+        ?country=IT
         ?country=FR
         etc.
       -->
@@ -143,6 +153,7 @@
   </header>
 
 
+
   <!-- =====================================================
        MAIN
   ====================================================== -->
@@ -159,9 +170,10 @@
       <div class="hero-inner">
 
 
-        <!-- COPY -->
+        <!-- HERO COPY -->
 
         <div class="hero-copy">
+
 
           <div class="eyebrow">
 
@@ -179,6 +191,7 @@
             </span>
 
           </div>
+
 
 
           <h1 class="hero-title">
@@ -201,6 +214,7 @@
           </h1>
 
 
+
           <p
             class="hero-description"
             data-i18n="hero_description"
@@ -208,6 +222,7 @@
             Colecciones, producto y herramientas
             de consulta para cada mercado.
           </p>
+
 
 
           <a
@@ -231,7 +246,8 @@
         </div>
 
 
-        <!-- VISUAL -->
+
+        <!-- HERO VISUAL -->
 
         <div
           class="hero-visual"
@@ -299,7 +315,7 @@
       <div class="section-inner">
 
 
-        <!-- SECTION TITLE -->
+        <!-- TITLE -->
 
         <div class="section-heading">
 
@@ -320,7 +336,8 @@
 
             <p data-i18n="collections_description">
               Descubre las colecciones actuales,
-              los próximos lanzamientos y nuestro histórico.
+              los próximos lanzamientos
+              y nuestro histórico.
             </p>
 
           </div>
@@ -330,7 +347,7 @@
 
 
         <!-- ================================
-             ACTIVE
+             ACTIVE COLLECTIONS
         ================================= -->
 
         <div
@@ -362,7 +379,7 @@
 
 
         <!-- ================================
-             UPCOMING
+             UPCOMING COLLECTIONS
         ================================= -->
 
         <div
@@ -394,7 +411,7 @@
 
 
         <!-- ================================
-             HISTORIC
+             HISTORIC COLLECTIONS
         ================================= -->
 
         <div
@@ -471,9 +488,10 @@
         </div>
 
 
+
         <!--
-          LAS TARJETAS SE GENERAN
-          DESDE GOOGLE SHEETS
+          PRODUCTOS GENERADOS
+          AUTOMÁTICAMENTE DESDE GOOGLE SHEETS
         -->
 
         <div
@@ -498,6 +516,7 @@
 
       <div class="section-inner">
 
+
         <p
           class="section-overline"
           data-i18n="resources_overline"
@@ -507,6 +526,7 @@
 
 
         <div class="resources-layout">
+
 
           <h2 data-i18n="resources_title">
             Todo conectado.
@@ -544,6 +564,7 @@
 
     <div class="footer-inner">
 
+
       <div class="footer-brand">
 
         <strong>
@@ -555,6 +576,7 @@
         </p>
 
       </div>
+
 
 
       <div class="footer-market">
@@ -580,18 +602,24 @@
   ====================================================== -->
 
   <!--
-    content.js queda temporalmente como respaldo.
-    Los datos reales vienen del Google Sheet.
+    RESPALDO TEMPORAL
   -->
 
-  <script src="content.js?v=6"></script>
+  <script src="./content.js?v=10"></script>
+
 
   <!--
-    app.js conecta:
-    GitHub → Apps Script → Google Sheets
+    GOOGLE SHEETS
+        ↓
+    APPS SCRIPT
+        ↓
+    APP.JS
+        ↓
+    GITHUB PAGES
   -->
 
-  <script src="app.js?v=6"></script>
+  <script src="./app.js?v=10"></script>
+
 
 </body>
 
