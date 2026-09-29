@@ -520,6 +520,14 @@ function createCollectionCard(
       "upcoming";
 
 
+  /*
+    ACTIVA / HISTÓRICO con URL:
+    toda la tarjeta es enlace.
+
+    PRÓXIMAMENTE o sin URL:
+    article normal.
+  */
+
   const card =
     document.createElement(
       isClickable
@@ -555,7 +563,7 @@ function createCollectionCard(
 
 
   /* =======================================================
-     CABECERA
+     TOP
   ======================================================= */
 
   const top =
@@ -620,7 +628,7 @@ function createCollectionCard(
 
 
   /* =======================================================
-     IMAGEN 1:1
+     IMAGE 1:1
   ======================================================= */
 
   if (imageUrl) {
@@ -662,14 +670,20 @@ function createCollectionCard(
 
 
     /*
-      Si por cualquier motivo Drive
-      no puede servir la imagen,
-      ocultamos el espacio de imagen.
+      Si la imagen no puede cargarse,
+      eliminamos el bloque para no dejar
+      un hueco vacío.
     */
 
     image.addEventListener(
       "error",
       function() {
+
+        console.warn(
+          "No se pudo cargar la imagen:",
+          imageUrl
+        );
+
 
         media.remove();
 
@@ -690,7 +704,7 @@ function createCollectionCard(
 
 
   /* =======================================================
-     CONTENIDO
+     CONTENT
   ======================================================= */
 
   const content =
@@ -797,7 +811,7 @@ function createCollectionCard(
 
 
   /*
-    ACTIVA / HISTÓRICO
+    ACTIVA / HISTÓRICO CON URL
   */
 
   else if (
@@ -865,7 +879,8 @@ function createCollectionCard(
 
 
 /* =========================================================
-   GOOGLE DRIVE IMAGE
+   IMAGE URL
+   GOOGLE DRIVE → DIRECT IMAGE
 ========================================================= */
 
 function getImageUrl(value) {
@@ -884,68 +899,72 @@ function getImageUrl(value) {
     String(value).trim();
 
 
-  /*
-    FORMATO DRIVE:
-    https://drive.google.com/file/d/FILE_ID/view
-  */
+  /* =======================================================
+     GOOGLE DRIVE
 
-  const fileMatch =
+     Ejemplo:
+     https://drive.google.com/file/d/FILE_ID/view?usp=sharing
+  ======================================================= */
+
+  const driveMatch =
     url.match(
-      /\/file\/d\/([^/]+)/
+      /drive\.google\.com\/file\/d\/([^/]+)/
     );
 
 
   if (
-    fileMatch &&
-    fileMatch[1]
+    driveMatch &&
+    driveMatch[1]
   ) {
 
     const fileId =
-      fileMatch[1];
+      driveMatch[1];
 
 
     return (
-      "https://drive.google.com/thumbnail?id=" +
+      "https://lh3.googleusercontent.com/d/" +
       encodeURIComponent(fileId) +
-      "&sz=w1200"
+      "=w1200"
     );
 
   }
 
 
-  /*
-    FORMATO DRIVE:
-    https://drive.google.com/open?id=FILE_ID
-    o cualquier URL que tenga ?id=
-  */
+  /* =======================================================
+     GOOGLE DRIVE CON ?id=
+  ======================================================= */
 
   try {
 
     const parsedUrl =
-      new URL(url);
+      new URL(
+        url
+      );
+
+
+    const fileId =
+      parsedUrl.searchParams.get(
+        "id"
+      );
 
 
     if (
-      parsedUrl.hostname.includes(
-        "drive.google.com"
+      fileId &&
+      (
+        parsedUrl.hostname.includes(
+          "drive.google.com"
+        ) ||
+        parsedUrl.hostname.includes(
+          "googleusercontent.com"
+        )
       )
     ) {
 
-      const id =
-        parsedUrl.searchParams.get(
-          "id"
-        );
-
-
-      if (id) {
-
-        return (
-          "https://drive.google.com/thumbnail?id=" +
-          encodeURIComponent(id) +
-          "&sz=w1200"
-        );
-
-      }
+      return (
+        "https://lh3.googleusercontent.com/d/" +
+        encodeURIComponent(fileId) +
+        "=w1200"
+      );
 
     }
 
@@ -958,15 +977,15 @@ function getImageUrl(value) {
       url
     );
 
+
     return "";
 
   }
 
 
-  /*
-    Si no es Drive asumimos que
-    ya es una URL directa de imagen.
-  */
+  /* =======================================================
+     URL DIRECTA NORMAL
+  ======================================================= */
 
   return url;
 
@@ -1059,6 +1078,12 @@ function createProductCard(
 
     card.rel =
       "noopener noreferrer";
+
+
+    card.setAttribute(
+      "aria-label",
+      `Abrir ${product.name}`
+    );
 
   }
 
