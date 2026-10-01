@@ -356,7 +356,7 @@ async function fetchMarketData(country) {
 
 
   /* =========================================
-     3. GUARDAR RESULTADO
+     3. GUARDAR RESULTADO EN CACHE
   ========================================= */
 
   try {
@@ -387,38 +387,10 @@ async function fetchMarketData(country) {
 
 }
 
-  const timestamp =
-    Date.now();
 
-
-  const url =
-    `${API_URL}?country=${encodeURIComponent(country)}&v=${timestamp}`;
-
-
-  const response =
-    await fetch(
-      url,
-      {
-        method: "GET",
-        cache: "no-store"
-      }
-    );
-
-
-  if (!response.ok) {
-
-    throw new Error(
-      `HTTP_${response.status}`
-    );
-
-  }
-
-
-  return await response.json();
-
-}
-
-
+/* =========================================================
+   TRANSLATIONS
+========================================================= */
 /* =========================================================
    TRANSLATIONS
 ========================================================= */
