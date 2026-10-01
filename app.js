@@ -9,7 +9,7 @@
 ========================================================= */
 
 const API_URL =
-  'https://script.google.com/macros/s/AKfycbw9xdH86IWzUCmJhhc3tVeSBVYhJRdmLn_IIYcl8gFPRj4uV7JEyCET23i3LAE4oXFU/exec';
+  "https://script.google.com/macros/s/AKfycbw9xdH86IWzUCmJhhc3tVeSBVYhJRdmLn_IIYcl8gFPRj4uV7JEyCET23i3LAE4oXFU/exec";
 
 
 const ALLOWED_COUNTRIES = [
@@ -127,7 +127,6 @@ async function initHub() {
     showMarketError();
 
     return;
-
   }
 
 
@@ -137,9 +136,7 @@ async function initHub() {
   try {
 
     const data =
-      await fetchMarketData(
-        country
-      );
+      await fetchMarketData(country);
 
 
     if (
@@ -151,7 +148,6 @@ async function initHub() {
         data?.error ||
         "API_ERROR"
       );
-
     }
 
 
@@ -210,9 +206,7 @@ function getCountryFromURL() {
 
 
   const country =
-    params.get(
-      "country"
-    );
+    params.get("country");
 
 
   if (!country) {
@@ -520,14 +514,6 @@ function createCollectionCard(
       "upcoming";
 
 
-  /*
-    ACTIVA / HISTÓRICO con URL:
-    toda la tarjeta es enlace.
-
-    PRÓXIMAMENTE o sin URL:
-    article normal.
-  */
-
   const card =
     document.createElement(
       isClickable
@@ -562,9 +548,7 @@ function createCollectionCard(
   }
 
 
-  /* =======================================================
-     TOP
-  ======================================================= */
+  /* TOP */
 
   const top =
     document.createElement(
@@ -627,9 +611,7 @@ function createCollectionCard(
   );
 
 
-  /* =======================================================
-     IMAGE 1:1
-  ======================================================= */
+  /* IMAGE */
 
   if (imageUrl) {
 
@@ -669,12 +651,6 @@ function createCollectionCard(
       "async";
 
 
-    /*
-      Si la imagen no puede cargarse,
-      eliminamos el bloque para no dejar
-      un hueco vacío.
-    */
-
     image.addEventListener(
       "error",
       function() {
@@ -703,9 +679,7 @@ function createCollectionCard(
   }
 
 
-  /* =======================================================
-     CONTENT
-  ======================================================= */
+  /* CONTENT */
 
   const content =
     document.createElement(
@@ -765,9 +739,7 @@ function createCollectionCard(
   );
 
 
-  /* =======================================================
-     FOOTER
-  ======================================================= */
+  /* FOOTER */
 
   const footer =
     document.createElement(
@@ -778,10 +750,6 @@ function createCollectionCard(
   footer.className =
     "collection-card-footer";
 
-
-  /*
-    PRÓXIMAMENTE
-  */
 
   if (
     collection.status ===
@@ -810,10 +778,6 @@ function createCollectionCard(
   }
 
 
-  /*
-    ACTIVA / HISTÓRICO CON URL
-  */
-
   else if (
     isClickable
   ) {
@@ -839,10 +803,6 @@ function createCollectionCard(
 
   }
 
-
-  /*
-    SIN URL
-  */
 
   else {
 
@@ -899,12 +859,7 @@ function getImageUrl(value) {
     String(value).trim();
 
 
-  /* =======================================================
-     GOOGLE DRIVE
-
-     Ejemplo:
-     https://drive.google.com/file/d/FILE_ID/view?usp=sharing
-  ======================================================= */
+  /* GOOGLE DRIVE /file/d/ */
 
   const driveMatch =
     url.match(
@@ -930,16 +885,12 @@ function getImageUrl(value) {
   }
 
 
-  /* =======================================================
-     GOOGLE DRIVE CON ?id=
-  ======================================================= */
+  /* GOOGLE DRIVE ?id= */
 
   try {
 
     const parsedUrl =
-      new URL(
-        url
-      );
+      new URL(url);
 
 
     const fileId =
@@ -982,10 +933,6 @@ function getImageUrl(value) {
 
   }
 
-
-  /* =======================================================
-     URL DIRECTA NORMAL
-  ======================================================= */
 
   return url;
 
@@ -1082,7 +1029,11 @@ function createProductCard(
 
     card.setAttribute(
       "aria-label",
-      `Abrir ${product.name}`
+      `Abrir ${getProductTranslation(
+        product,
+        translations,
+        "name"
+      )}`
     );
 
   }
@@ -1114,7 +1065,11 @@ function createProductCard(
 
 
   title.textContent =
-    product.name;
+    getProductTranslation(
+      product,
+      translations,
+      "name"
+    );
 
 
   const description =
@@ -1124,7 +1079,11 @@ function createProductCard(
 
 
   description.textContent =
-    product.description || "";
+    getProductTranslation(
+      product,
+      translations,
+      "description"
+    );
 
 
   card.appendChild(
@@ -1165,6 +1124,7 @@ function createProductCard(
 
   }
 
+
   else {
 
     const label =
@@ -1190,6 +1150,139 @@ function createProductCard(
 
 
   return card;
+
+}
+
+
+/* =========================================================
+   PRODUCT TRANSLATIONS
+========================================================= */
+
+function getProductTranslation(
+  product,
+  translations,
+  type
+) {
+
+  const rawId =
+    String(
+      product.id ||
+      product.name ||
+      ""
+    )
+    .toLowerCase()
+    .trim();
+
+
+  let productKey = "";
+
+
+  /* CARCASAS */
+
+  if (
+    rawId.includes("carcasa") ||
+    rawId.includes("case")
+  ) {
+
+    productKey =
+      "cases";
+
+  }
+
+
+  /* CRISTALES */
+
+  else if (
+    rawId.includes("cristal") ||
+    rawId.includes("glass")
+  ) {
+
+    productKey =
+      "glass";
+
+  }
+
+
+  /* TABLET */
+
+  else if (
+    rawId.includes("tablet")
+  ) {
+
+    productKey =
+      "tablet";
+
+  }
+
+
+  /* ACCESORIOS */
+
+  else if (
+    rawId.includes("accesorio") ||
+    rawId.includes("accessor")
+  ) {
+
+    productKey =
+      "accessories";
+
+  }
+
+
+  /* SQUISHY */
+
+  else if (
+    rawId.includes("squishy")
+  ) {
+
+    productKey =
+      "squishy";
+
+  }
+
+
+  /* SI NO RECONOCEMOS EL PRODUCTO */
+
+  if (!productKey) {
+
+    return type === "name"
+      ? product.name || ""
+      : product.description || "";
+
+  }
+
+
+  const translationKey =
+    `product_${productKey}_${type}`;
+
+
+  const translatedValue =
+    translations[
+      translationKey
+    ];
+
+
+  /* TRADUCCIÓN DISPONIBLE */
+
+  if (
+    translatedValue !== undefined &&
+    translatedValue !== null &&
+    String(
+      translatedValue
+    ).trim() !== ""
+  ) {
+
+    return String(
+      translatedValue
+    ).trim();
+
+  }
+
+
+  /* FALLBACK AL TEXTO DEL PRODUCTO */
+
+  return type === "name"
+    ? product.name || ""
+    : product.description || "";
 
 }
 
