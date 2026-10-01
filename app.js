@@ -266,6 +266,127 @@ function configureMarket(country) {
 
 async function fetchMarketData(country) {
 
+  const cacheKey =
+    `productHub_${country}`;
+
+  const cacheTimeKey =
+    `productHub_${country}_time`;
+
+  const CACHE_DURATION =
+    10 * 60 * 1000; // 10 minutos
+
+
+  /* =========================================
+     1. INTENTAR LEER CACHE LOCAL
+  ========================================= */
+
+  try {
+
+    const cachedData =
+      localStorage.getItem(
+        cacheKey
+      );
+
+    const cachedTime =
+      Number(
+        localStorage.getItem(
+          cacheTimeKey
+        )
+      );
+
+
+    if (
+      cachedData &&
+      cachedTime &&
+      Date.now() - cachedTime <
+        CACHE_DURATION
+    ) {
+
+      console.log(
+        "PRODUCT HUB: usando caché local"
+      );
+
+      return JSON.parse(
+        cachedData
+      );
+
+    }
+
+  }
+
+  catch (error) {
+
+    console.warn(
+      "No se pudo leer la caché:",
+      error
+    );
+
+  }
+
+
+  /* =========================================
+     2. PEDIR DATOS A APPS SCRIPT
+  ========================================= */
+
+  const url =
+    `${API_URL}?country=${encodeURIComponent(country)}`;
+
+
+  const response =
+    await fetch(
+      url,
+      {
+        method: "GET",
+        cache: "default"
+      }
+    );
+
+
+  if (!response.ok) {
+
+    throw new Error(
+      `HTTP_${response.status}`
+    );
+
+  }
+
+
+  const data =
+    await response.json();
+
+
+  /* =========================================
+     3. GUARDAR RESULTADO
+  ========================================= */
+
+  try {
+
+    localStorage.setItem(
+      cacheKey,
+      JSON.stringify(data)
+    );
+
+    localStorage.setItem(
+      cacheTimeKey,
+      String(Date.now())
+    );
+
+  }
+
+  catch (error) {
+
+    console.warn(
+      "No se pudo guardar la caché:",
+      error
+    );
+
+  }
+
+
+  return data;
+
+}
+
   const timestamp =
     Date.now();
 
